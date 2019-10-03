@@ -35,7 +35,7 @@ public class UsuarioController {
 			if (email == null)
 				throw new NullPointerException("O email deve ser informado");
 			if (senha == null)
-				throw new NullPointerException("A senha deve ser informado");
+				throw new NullPointerException("A senha deve ser informada");
 
 			Usuario novoUsuario = usuarioService.cadastraUsuario(nome, telefone, email, senha);
 			return new ResponseEntity<>(novoUsuario, HttpStatus.OK);
@@ -62,7 +62,7 @@ public class UsuarioController {
 			if (email == null)
 				throw new NullPointerException("O email deve ser informado");
 			if (senha == null)
-				throw new NullPointerException("A senha deve ser informado");
+				throw new NullPointerException("A senha deve ser informada");
 
 			Usuario usuario = usuarioService.verificaLogin(email, senha);
 			return new ResponseEntity<>(usuario, HttpStatus.OK);

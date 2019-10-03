@@ -4,6 +4,21 @@ plugins {
 	id 'java'
 }
 
+bootJar {
+    baseName='delivery-mercado'
+    version='03-10-19'
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "com.pin.Backend.DeliveyMercadoApplictaion"
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+
 group = 'com.application.deliverymercado'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
