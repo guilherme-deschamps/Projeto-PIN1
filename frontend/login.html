@@ -13,30 +13,44 @@
 <body style="background-image: url('img/login_background.png'); background-size: 61%; background-repeat: no-repeat;">
 
     <div id="app">
-
-        <div id="login">
-            <center>
-                <p class="titulo_login">
-                    <b>Faça seu login</b>
-                </p>
-
-                <p style="margin-top: 15%">Usuário</p>
-                <input type="text">
-                <p style="margin-top: 10%">Senha</p>
-                <input type="password">
-            </center>
-
-            <br>
-            <button>Entrar</button>
-            <br>
-            <p style="text-align: right; margin-right: 12%">Não tem uma conta? <a>Crie já a sua!</a>
-            </p>
-
-        </div>
-
+        <login_form></login_form>
     </div>
 
     <script>
+
+        Vue.component(
+            'login_form',
+            {
+                data() {
+                    return {
+                        username: '',
+                        password: ''
+                    }
+                },
+                template: ` 
+                    <div id="login">
+                        <center>
+                            <p class="title_login">
+                                <b>Faça seu login</b>
+                            </p>
+
+                            <p style="margin-top: 15%">Usuário</p>
+                            <input type="text" name="username">
+                            <p style="margin-top: 10%">Senha</p>
+                            <input type="password" name="password">
+                        </center>
+
+                        <br>
+                        <button v-on:keyup.enter="">Entrar</button>
+                        <br>
+                        <p style="text-align: right; margin-right: 12%">Não tem uma conta?
+                            <a href="cadastro.html">Crie já a sua!</a>
+                        </p>
+
+                    </div>`
+            }
+        )
+
         new Vue({
             el: "#app"
         })
