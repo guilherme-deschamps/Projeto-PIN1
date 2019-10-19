@@ -3,11 +3,8 @@ package Backend.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import Backend.exceptions.ObjetoJaCadastradoException;
 import Backend.exceptions.PermissaoNegadaException;
@@ -15,12 +12,14 @@ import Backend.exceptions.UsuarioInexistenteException;
 import Backend.models.Usuario;
 import Backend.services.UsuarioService;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
+@RequestMapping("/api")
 public class UsuarioController {
 
 	@Autowired
 	UsuarioService usuarioService;
-	
+
 	@PostMapping(value = "/usuario/cadastro")
 	public ResponseEntity<?> cadastraUsuario(
 			@RequestParam(value = "nome", required = false) String nome,
@@ -35,7 +34,7 @@ public class UsuarioController {
 			if (email == null)
 				throw new NullPointerException("O email deve ser informado");
 			if (senha == null)
-				throw new NullPointerException("A senha deve ser informado");
+				throw new NullPointerException("A senha deve ser informada");
 
 			Usuario novoUsuario = usuarioService.cadastraUsuario(nome, telefone, email, senha);
 			return new ResponseEntity<>(novoUsuario, HttpStatus.OK);
@@ -43,7 +42,7 @@ public class UsuarioController {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@GetMapping(value = "/usuario/{id_usuario}")
 	public ResponseEntity<?> getUsuarioById(
 			@PathVariable(value = "id_usuario", required = false) Long id) {
@@ -53,8 +52,8 @@ public class UsuarioController {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
-	
-	@GetMapping(value = "/usuario/login")
+
+	@PostMapping(value = "/usuario/login")
 	public ResponseEntity<?> verificaLogin(
 			@RequestParam(value = "email", required = false) String email,
 			@RequestParam(value = "senha", required = false) String senha) {
@@ -62,7 +61,7 @@ public class UsuarioController {
 			if (email == null)
 				throw new NullPointerException("O email deve ser informado");
 			if (senha == null)
-				throw new NullPointerException("A senha deve ser informado");
+				throw new NullPointerException("A senha deve ser informada");
 
 			Usuario usuario = usuarioService.verificaLogin(email, senha);
 			return new ResponseEntity<>(usuario, HttpStatus.OK);
