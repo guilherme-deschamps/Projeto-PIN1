@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Usuario {
@@ -14,20 +15,22 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name = "nome")
+	@Column(name = "nome", nullable = false)
 	private String nome;
 	
 	@Column(name = "telefone")
 	private String telefone;
 	
-	@Column(name = "email")
+	@Column(name = "email", nullable = false)
 	private String email;
 	
-	@Column(name = "senha")
+	@Column(name = "senha", nullable = false)
 	private String senha;
 	
+	@OneToMany
+	private Supermercado supermercado;
+	
 	public Usuario() {
-		
 	}
 
 	public Usuario(String nome, String telefone, String email, String senha) {
