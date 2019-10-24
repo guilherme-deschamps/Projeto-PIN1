@@ -21,7 +21,7 @@ public class UsuarioService {
 			throws ObjetoJaCadastradoException {
 
 		if (usuarioRepository.existsByEmail(email))
-			throw new ObjetoJaCadastradoException("Usuario Ja cadastrado com este" + "email.");
+			throw new ObjetoJaCadastradoException("Usuario Ja cadastrado com este email.");
 		Usuario novoUsuario = new Usuario(nome, telefone, email, senha);
 		usuarioRepository.save(novoUsuario);
 		return novoUsuario;
