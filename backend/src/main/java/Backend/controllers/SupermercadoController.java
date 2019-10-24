@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,7 @@ public class SupermercadoController {
 	@Autowired
 	EnderecoService enderecoService;
 
+	@PostMapping(value = "/supermercado/cadastro")
 	public ResponseEntity<?> cadastraSupermercado(
 			@RequestParam(value = "nome", required = false) String nome,
 			@RequestParam(value = "cnoj", required = false) String cnpj,
@@ -53,11 +55,9 @@ public class SupermercadoController {
 			
 			Supermercado supermercado = supermercadoService.cadastraSupermercado
 					(nome, cnpj, telefone, email, endereco);
-			return null;
+			return new ResponseEntity<>(supermercado, HttpStatus.OK);
 		} catch (ObjetoJaCadastradoException e) {
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		
 	}
-	
 }
