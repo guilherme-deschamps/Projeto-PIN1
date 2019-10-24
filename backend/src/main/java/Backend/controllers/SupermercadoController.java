@@ -4,12 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import Backend.exceptions.ObjetoJaCadastradoException;
+import Backend.exceptions.SupermercadoInexistenteException;
+import Backend.exceptions.UsuarioInexistenteException;
 import Backend.models.Endereco;
 import Backend.models.Supermercado;
 import Backend.repositories.EnderecoRepository;
@@ -57,6 +61,16 @@ public class SupermercadoController {
 					(nome, cnpj, telefone, email, endereco);
 			return new ResponseEntity<>(supermercado, HttpStatus.OK);
 		} catch (ObjetoJaCadastradoException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping(value = "/supermercado/{id_supermercado}")
+	public ResponseEntity<?> getUsuarioById(
+			@PathVariable(value = "id_usuario", required = false) Long id) {
+		try {
+			return new ResponseEntity<>(supermercadoService.buscaSupermercadoPorId(id), HttpStatus.OK);
+		}catch (SupermercadoInexistenteException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
