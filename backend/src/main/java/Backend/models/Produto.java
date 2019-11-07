@@ -7,7 +7,7 @@ public class Produto {
 
     @Id
     @Column(name = "id_produto")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "nome")
@@ -33,6 +33,5 @@ public class Produto {
     private Categoria categoria;
 
     public Produto() {
-        
     }
 }

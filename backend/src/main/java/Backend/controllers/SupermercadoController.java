@@ -67,7 +67,7 @@ public class SupermercadoController {
 	
 	@GetMapping(value = "/supermercado/{id_supermercado}")
 	public ResponseEntity<?> getUsuarioById(
-			@PathVariable(value = "id_usuario", required = false) Long id) {
+			@PathVariable(value = "id_supermercado", required = false) Long id) {
 		try {
 			return new ResponseEntity<>(supermercadoService.buscaSupermercadoPorId(id), HttpStatus.OK);
 		}catch (SupermercadoInexistenteException e) {

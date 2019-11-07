@@ -16,7 +16,7 @@ public class Supermercado {
 	
 	@Id
     @Column(name = "id_supermercado")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name = "nome", nullable = false)

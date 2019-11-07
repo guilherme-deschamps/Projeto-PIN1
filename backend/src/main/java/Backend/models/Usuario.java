@@ -15,8 +15,8 @@ import javax.persistence.OneToMany;
 public class Usuario {
 
 	@Id
-    @Column(name = "id_pessoa")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_usuario")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name = "nome", nullable = false)
@@ -30,10 +30,6 @@ public class Usuario {
 	
 	@Column(name = "senha", nullable = false)
 	private String senha;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_supermercado")
-	private Supermercado supermercado;
 	
 	public Usuario() {
 	}

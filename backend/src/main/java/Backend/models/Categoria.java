@@ -1,13 +1,14 @@
 package Backend.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Categoria {
 
     @Id
     @Column(name = "id_categoria")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "nome")
@@ -15,7 +16,7 @@ public class Categoria {
 
     @OneToMany
     @JoinColumn(name = "id_produto")
-    private Produto produto;
+    private List<Produto> produto;
 
     public Categoria() {
     }
