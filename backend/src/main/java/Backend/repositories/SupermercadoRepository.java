@@ -7,5 +7,5 @@ import Backend.models.Supermercado;
 
 public interface SupermercadoRepository extends CrudRepository<Supermercado, Long>{
 
-	boolean existsByCnpjAndEndereco(String cnpj, Endereco endereco);
+	boolean existsByCnpjOrEndereco(String cnpj, Endereco endereco);
 }

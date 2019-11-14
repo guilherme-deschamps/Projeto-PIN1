@@ -30,7 +30,14 @@ public class Usuario {
 	
 	@Column(name = "senha", nullable = false)
 	private String senha;
-	
+
+	@Column(name = "funcao", nullable = false)
+	private String funcao;
+
+	@ManyToOne
+	@JoinColumn(name = "id_supermercado")
+	private Supermercado supermercado;
+
 	public Usuario() {
 	}
 
@@ -80,6 +87,20 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
-	
+
+	public String getFuncao() {
+		return funcao;
+	}
+
+	public void setFuncao(String funcao) {
+		this.funcao = funcao;
+	}
+
+	public Supermercado getSupermercado() {
+		return supermercado;
+	}
+
+	public void setSupermercado(Supermercado supermercado) {
+		this.supermercado = supermercado;
+	}
 }

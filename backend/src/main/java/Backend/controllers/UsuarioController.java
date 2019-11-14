@@ -22,21 +22,12 @@ public class UsuarioController {
 
     @PostMapping(value = "/usuario/cadastro")
     public ResponseEntity<?> cadastraUsuario(
-            @RequestParam(value = "nome", required = false) String nome,
-            @RequestParam(value = "telefone", required = false) String telefone,
-            @RequestParam(value = "email", required = false) String email,
-            @RequestParam(value = "senha", required = false) String senha) {
+            @RequestParam(value = "nome") String nome,
+            @RequestParam(value = "telefone") String telefone,
+            @RequestParam(value = "email") String email,
+            @RequestParam(value = "senha") String senha) {
         try {
-            if (nome == null)
-                throw new NullPointerException("O nome deve ser informado");
-            if (telefone == null)
-                throw new NullPointerException("O telefone deve ser informado");
-            if (email == null)
-                throw new NullPointerException("O email deve ser informado");
-            if (senha == null)
-                throw new NullPointerException("A senha deve ser informada");
-
-            Usuario novoUsuario = usuarioService.cadastraUsuario(nome, telefone, email, senha);
+            Usuario novoUsuario = usuarioService.cadastraUsuario(nome, telefone, email, senha, "usuario");
             return new ResponseEntity<>(novoUsuario, HttpStatus.OK);
         } catch (ObjetoJaCadastradoException | NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -45,13 +36,9 @@ public class UsuarioController {
 
     @PostMapping(value = "/usuario/login")
     public ResponseEntity<?> verificaLogin(
-            @RequestParam(value = "email", required = false) String email,
-            @RequestParam(value = "senha", required = false) String senha) {
+            @RequestParam(value = "email") String email,
+            @RequestParam(value = "senha") String senha) {
         try {
-            if (email == null)
-                throw new NullPointerException("O email deve ser informado");
-            if (senha == null)
-                throw new NullPointerException("A senha deve ser informada");
 
             Usuario usuario = usuarioService.verificaLogin(email, senha);
             return new ResponseEntity<>(usuario, HttpStatus.OK);
@@ -62,10 +49,10 @@ public class UsuarioController {
 
     @PutMapping(value = "/usuario/{id_usuario}")
     public ResponseEntity<?> editaUsuario(
-            @PathVariable(value = "id_usuario", required = false) Long idUsuario,
-            @RequestParam(value = "nome", required = false) String nome,
-            @RequestParam(value = "telefone", required = false) String telefone,
-            @RequestParam(value = "email", required = false) String email) {
+            @PathVariable(value = "id_usuario") Long idUsuario,
+            @RequestParam(value = "nome") String nome,
+            @RequestParam(value = "telefone") String telefone,
+            @RequestParam(value = "email") String email) {
 
         try {
             Usuario usuario = usuarioService.buscaUsuarioPorId(idUsuario);
@@ -78,9 +65,9 @@ public class UsuarioController {
 
     @PutMapping(value = "/usuario/novasenha/{id_usuario}")
     public ResponseEntity<?> alterarSenha(
-            @PathVariable(value = "id_usuario", required = false) Long idUsuario,
-            @RequestParam(value = "senhaNova", required = false) String senhaNova,
-            @RequestParam(value = "senhaAntiga", required = false) String senhaAntiga) {
+            @PathVariable(value = "id_usuario") Long idUsuario,
+            @RequestParam(value = "senhaNova") String senhaNova,
+            @RequestParam(value = "senhaAntiga") String senhaAntiga) {
 
         try {
             if (idUsuario == null)
@@ -105,7 +92,7 @@ public class UsuarioController {
 
     @GetMapping(value = "/usuario/{id_usuario}")
     public ResponseEntity<?> getUsuarioById(
-            @PathVariable(value = "id_usuario", required = false) Long id) {
+            @PathVariable(value = "id_usuario") Long id) {
         try {
             return new ResponseEntity<>(usuarioService.buscaUsuarioPorId(id), HttpStatus.OK);
         } catch (UsuarioInexistenteException e) {

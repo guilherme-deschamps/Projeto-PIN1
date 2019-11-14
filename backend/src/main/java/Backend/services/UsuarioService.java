@@ -3,6 +3,8 @@ package Backend.services;
 import java.nio.file.AccessDeniedException;
 import java.util.Optional;
 
+import Backend.models.Supermercado;
+import Backend.repositories.SupermercadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +18,17 @@ public class UsuarioService {
 
 	@Autowired
 	UsuarioRepository usuarioRepository;
+
+	@Autowired
+	SupermercadoRepository supermercadoRepository;
 	
-	public Usuario cadastraUsuario(String nome, String telefone, String email, String senha)
+	public Usuario cadastraUsuario(String nome, String telefone, String email, String senha, String funcao)
 			throws ObjetoJaCadastradoException {
 
 		if (usuarioRepository.existsByEmail(email))
 			throw new ObjetoJaCadastradoException("Usuario Ja cadastrado com este email.");
 		Usuario novoUsuario = new Usuario(nome, telefone, email, senha);
+		novoUsuario.setFuncao(funcao);
 		usuarioRepository.save(novoUsuario);
 		return novoUsuario;
 	}
@@ -65,5 +71,17 @@ public class UsuarioService {
 		else throw new AccessDeniedException("Acesso negado, senha nova deve ser igual à senha antiga.");
 		usuarioRepository.save(usuario);
 		return usuario;
+	}
+
+	public void adicionaNovoSupermercado(Usuario usuario, Supermercado supermercado) {
+		usuario.setSupermercado(supermercado);
+		supermercado.getUsuarios().add(usuario);
+		usuarioRepository.save(usuario);
+		supermercadoRepository.save(supermercado);
+	}
+
+	public void adicionaNovaFuncao(Usuario usuario, String novaFuncao) {
+		usuario.setFuncao(novaFuncao);
+		usuarioRepository.save(usuario);
 	}
 }
