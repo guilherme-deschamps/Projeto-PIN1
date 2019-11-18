@@ -16,7 +16,7 @@ public class Categoria {
 
     @OneToMany
     @JoinColumn(name = "id_produto")
-    private List<Produto> produto;
+    private List<Produto> produtos;
 
     public Categoria() {
     }
@@ -31,5 +31,21 @@ public class Categoria {
 
     public String getNome() {
         return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProduto(List<Produto> produto) {
+        this.produtos = produto;
+    }
+
+    public void addProduto(Produto produto) {
+        this.produtos.add(produto);
     }
 }

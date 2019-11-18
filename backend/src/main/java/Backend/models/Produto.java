@@ -35,14 +35,72 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(String nome, String marca, double preco, boolean ehEsgotado, String undMedida, int percentualPromocao,
-                   Categoria categoria) {
+    public Produto(String nome, String marca, double preco, boolean ehEsgotado, String undMedida, Categoria categoria) {
         this.nome = nome;
         this.marca = marca;
         this.preco = preco;
         this.ehEsgotado = ehEsgotado;
         this.undMedida = undMedida;
+        this.categoria = categoria;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
+    public boolean isEhEsgotado() {
+        return ehEsgotado;
+    }
+
+    public void setEhEsgotado(boolean ehEsgotado) {
+        this.ehEsgotado = ehEsgotado;
+    }
+
+    public String getUndMedida() {
+        return undMedida;
+    }
+
+    public void setUndMedida(String undMedida) {
+        this.undMedida = undMedida;
+    }
+
+    public int getPercentualPromocao() {
+        return percentualPromocao;
+    }
+
+    public void setPercentualPromocao(int percentualPromocao) {
         this.percentualPromocao = percentualPromocao;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 }

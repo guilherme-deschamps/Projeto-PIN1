@@ -18,7 +18,7 @@ apply plugin: 'io.spring.dependency-management'
 
 bootJar {
     baseName='delivery-mercado'
-    version='24-10-19'
+    version='18-11-19'
 }
 
 jar {

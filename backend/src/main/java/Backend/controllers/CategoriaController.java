@@ -1,5 +1,7 @@
 package Backend.controllers;
 
+import Backend.exceptions.CategoriaInexistenteException;
+import Backend.exceptions.ProdutoInexistenteException;
 import Backend.models.Categoria;
 import Backend.models.Produto;
 import Backend.services.CategoriaService;
@@ -30,13 +32,16 @@ public class CategoriaController {
         }
     }
 
-    @PutMapping(value = "/categoria/produto/{id_produto}")
-    public ResponseEntity<?> adicionaProduto(@PathVariable(value = "id_produto") Long idProduto) {
+    @PutMapping(value = "/categoria/produto/{id_produto}/categoria/{id_categoria}")
+    public ResponseEntity<?> adicionaProduto(@PathVariable(value = "id_produto") Long idProduto,
+                                             @PathVariable(value = "id_categoria") Long idCategoria) {
 
         try {
             Produto produto = produtoService.buscaProdutoPorId(idProduto);
-            categoriaService.adicionaProduto(produto);
-        } catch (Exception e) {
+            Categoria categoria = categoriaService.buscaCategoriaPorId(idCategoria);
+            categoriaService.adicionaProduto(categoria, produto);
+            return new ResponseEntity<>(categoria, HttpStatus.OK);
+        } catch (Exception | ProdutoInexistenteException | CategoriaInexistenteException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }

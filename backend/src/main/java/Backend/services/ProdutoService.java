@@ -21,7 +21,7 @@ public class ProdutoService {
     public Produto cadastraProduto(String nome, String marca, double preco, boolean ehEsgotado, String unidMedida,
                                    int percentualPromocao, Categoria categoria) {
 
-        Produto novoProduto = new Produto(nome, marca, preco, ehEsgotado);
+        Produto novoProduto = new Produto(nome, marca, preco, ehEsgotado, unidMedida, categoria);
         return novoProduto;
     }
 
