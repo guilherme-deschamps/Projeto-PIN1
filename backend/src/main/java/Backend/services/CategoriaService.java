@@ -5,9 +5,11 @@ import Backend.exceptions.ObjetoJaCadastradoException;
 import Backend.exceptions.ProdutoInexistenteException;
 import Backend.models.Categoria;
 import Backend.models.Produto;
+import Backend.models.Supermercado;
 import Backend.models.Usuario;
 import Backend.repositories.CategoriaRepository;
 import Backend.repositories.ProdutoRepository;
+import Backend.repositories.SupermercadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +24,13 @@ public class CategoriaService {
     @Autowired
     ProdutoRepository produtoRepository;
 
-    public Categoria cadastraCategoria(String nome) {
+    @Autowired
+    SupermercadoRepository supermercadoRepository;
+
+    public Categoria cadastraCategoria(Supermercado supermercado, String nome) {
         Categoria categoria = new Categoria(nome);
+        supermercado.addCategoria(categoria);
+        
         categoriaRepository.save(categoria);
         return categoria;
     }

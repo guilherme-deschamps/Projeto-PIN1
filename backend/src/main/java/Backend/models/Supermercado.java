@@ -2,14 +2,7 @@ package Backend.models;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class Supermercado {
@@ -38,6 +31,10 @@ public class Supermercado {
 	@OneToMany
 	@JoinColumn(name = "id_usuario")
 	private List<Usuario> usuarios;
+
+	@OneToMany
+	@JoinColumn(name = "id_categoria")
+	private List<Categoria> categorias;
 
 	public Supermercado() {
 	}
@@ -76,5 +73,13 @@ public class Supermercado {
 
 	public List<Usuario> getUsuarios() {
 		return usuarios;
+	}
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void addCategoria(Categoria categoria) {
+		this.categorias.add(categoria);
 	}
 }

@@ -2,10 +2,13 @@ package Backend.controllers;
 
 import Backend.exceptions.CategoriaInexistenteException;
 import Backend.exceptions.ProdutoInexistenteException;
+import Backend.exceptions.SupermercadoInexistenteException;
 import Backend.models.Categoria;
 import Backend.models.Produto;
+import Backend.models.Supermercado;
 import Backend.services.CategoriaService;
 import Backend.services.ProdutoService;
+import Backend.services.SupermercadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +25,17 @@ public class CategoriaController {
     @Autowired
     ProdutoService produtoService;
 
+    @Autowired
+    SupermercadoService supermercadoService;
+
     @PostMapping(value = "/categoria")
-    public ResponseEntity<?> cadastraCategoria(@RequestParam(value = "nome") String nome) {
+    public ResponseEntity<?> cadastraCategoria(@RequestParam(value = "nome") String nome,
+                                               @RequestParam(value = "id_supermercado") Long idSupermercado) {
 
         try {
-            return new ResponseEntity<>(categoriaService.cadastraCategoria(nome), HttpStatus.OK);
-        } catch (Exception e) {
+            Supermercado supermercado = supermercadoService.buscaSupermercadoPorId(idSupermercado);
+            return new ResponseEntity<>(categoriaService.cadastraCategoria(supermercado, nome), HttpStatus.OK);
+        } catch (Exception | SupermercadoInexistenteException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
