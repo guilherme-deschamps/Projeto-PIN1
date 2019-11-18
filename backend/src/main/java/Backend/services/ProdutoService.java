@@ -18,11 +18,9 @@ public class ProdutoService {
     @Autowired
     ProdutoRepository produtoRepository;
 
-    public Produto cadastraProduto(String nome, String marca, double preco, boolean ehEsgotado, String unidMedida,
-                                   int percentualPromocao, Categoria categoria) {
+    public Produto cadastraProduto(String nome, String marca, double preco, String unidMedida, Categoria categoria) {
 
-        Produto novoProduto = new Produto(nome, marca, preco, ehEsgotado, unidMedida, categoria);
-        return novoProduto;
+        return produtoRepository.save(new Produto(nome, marca, preco, unidMedida, categoria));
     }
 
     public Produto buscaProdutoPorId(Long idProduto) throws ProdutoInexistenteException {

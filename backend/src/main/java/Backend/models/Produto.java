@@ -35,11 +35,10 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(String nome, String marca, double preco, boolean ehEsgotado, String undMedida, Categoria categoria) {
+    public Produto(String nome, String marca, double preco, String undMedida, Categoria categoria) {
         this.nome = nome;
         this.marca = marca;
         this.preco = preco;
-        this.ehEsgotado = ehEsgotado;
         this.undMedida = undMedida;
         this.categoria = categoria;
     }
