@@ -23,7 +23,7 @@ public class Produto {
     private boolean ehEsgotado;
 
     @Column(name = "und_medida")
-    private String und_medida;
+    private String undMedida;
 
     @Column(name = "percentual_promocao")
     private int percentualPromocao;
@@ -33,5 +33,16 @@ public class Produto {
     private Categoria categoria;
 
     public Produto() {
+    }
+
+    public Produto(String nome, String marca, double preco, boolean ehEsgotado, String undMedida, int percentualPromocao,
+                   Categoria categoria) {
+        this.nome = nome;
+        this.marca = marca;
+        this.preco = preco;
+        this.ehEsgotado = ehEsgotado;
+        this.undMedida = undMedida;
+        this.percentualPromocao = percentualPromocao;
+        this.categoria = categoria;
     }
 }

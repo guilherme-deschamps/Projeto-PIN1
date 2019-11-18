@@ -33,9 +33,9 @@ public class UsuarioService {
 		return novoUsuario;
 	}
 
-	public Usuario buscaUsuarioPorId(Long id) throws UsuarioInexistenteException {
+	public Usuario buscaUsuarioPorId(Long idUsuario) throws UsuarioInexistenteException {
 
-		Optional opUsuario = usuarioRepository.findById(id);
+		Optional opUsuario = usuarioRepository.findById(idUsuario);
 		if (opUsuario.isPresent())
 			return (Usuario) opUsuario.get();
 		throw new UsuarioInexistenteException("Usuario não encontrado com o id especificado.");
