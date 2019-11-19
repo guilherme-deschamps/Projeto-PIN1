@@ -31,7 +31,6 @@ public class CategoriaService {
         Categoria categoria = new Categoria(nome);
         supermercado.addCategoria(categoria);
         supermercadoRepository.save(supermercado);
-        categoriaRepository.save(categoria);
         return categoria;
     }
 
@@ -46,7 +45,7 @@ public class CategoriaService {
     public void adicionaProduto(Categoria categoria, Produto produto) {
         categoria.addProduto(produto);
         produto.setCategoria(categoria);
-        categoriaRepository.save(categoria);
         produtoRepository.save(produto);
+        categoriaRepository.save(categoria);
     }
 }

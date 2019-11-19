@@ -1,5 +1,7 @@
 package Backend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,8 +16,8 @@ public class Categoria {
     @Column(name = "nome")
     private String nome;
 
-    @OneToMany
-    @JoinColumn(name = "id_produto")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
+    @JsonBackReference
     private List<Produto> produtos;
 
     public Categoria() {

@@ -35,6 +35,14 @@ public class ProdutoController {
         }
     }
 
-//    @GetMapping(value = "/produtos/categoria/{id_categoria}")
-//    public ResponseEntity<?> getProdutosByCategoria
+    @GetMapping(value = "/produtos/categoria/{id_categoria}")
+    public ResponseEntity<?> getProdutosByCategoria(@PathVariable(value = "id_categoria") Long idCategoria) {
+
+        try {
+            Categoria categoria = categoriaService.buscaCategoriaPorId(idCategoria);
+            return new ResponseEntity<>(produtoService.buscaProdutosPorCategoria(categoria), HttpStatus.OK);
+        } catch (CategoriaInexistenteException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

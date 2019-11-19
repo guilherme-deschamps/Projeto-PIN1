@@ -1,5 +1,7 @@
 package Backend.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -30,6 +32,7 @@ public class Produto {
 
     @ManyToOne
     @JoinColumn(name = "id_categoria")
+    @JsonManagedReference
     private Categoria categoria;
 
     public Produto() {

@@ -1,5 +1,9 @@
 package Backend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -28,13 +32,13 @@ public class Supermercado {
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
 	
-	@OneToMany
-	@JoinColumn(name = "id_usuario")
-	private List<Usuario> usuarios;
+	@Transient
+	@JsonBackReference
+	private List<Usuario> usuarios = new ArrayList<>();
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_categoria")
-	private List<Categoria> categorias;
+	private List<Categoria> categorias = new ArrayList<>();
 
 	public Supermercado() {
 	}
@@ -81,5 +85,9 @@ public class Supermercado {
 
 	public void addCategoria(Categoria categoria) {
 		this.categorias.add(categoria);
+	}
+
+	public void addUsuario(Usuario usuario) {
+		this.usuarios.add(usuario);
 	}
 }

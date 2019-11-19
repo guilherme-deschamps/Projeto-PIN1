@@ -1,5 +1,7 @@
 package Backend.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,6 +37,7 @@ public class Usuario {
 	private String funcao;
 
 	@ManyToOne
+	@JsonManagedReference
 	@JoinColumn(name = "id_supermercado")
 	private Supermercado supermercado;
 
