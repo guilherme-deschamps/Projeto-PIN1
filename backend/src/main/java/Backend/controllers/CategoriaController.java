@@ -28,7 +28,7 @@ public class CategoriaController {
     @Autowired
     SupermercadoService supermercadoService;
 
-    @PostMapping(value = "/categoria")
+    @PostMapping(value = "/categoria/cadastro")
     public ResponseEntity<?> cadastraCategoria(@RequestParam(value = "nome") String nome,
                                                @RequestParam(value = "id_supermercado") Long idSupermercado) {
 

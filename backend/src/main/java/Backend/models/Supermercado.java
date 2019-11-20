@@ -37,8 +37,8 @@ public class Supermercado {
 	@JsonIgnore
 	private Usuario usuario;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_categoria")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "supermercado")
+	@JsonBackReference
 	private List<Categoria> categorias = new ArrayList<>();
 
 	public Supermercado() {

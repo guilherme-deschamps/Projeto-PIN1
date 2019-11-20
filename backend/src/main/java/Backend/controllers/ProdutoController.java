@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -20,16 +21,20 @@ public class ProdutoController {
     @Autowired
     CategoriaService categoriaService;
 
-    @PostMapping(value = "/produto")
-    public ResponseEntity<?> cadastraProduto(@RequestParam(value = "id_categoria") Long idCategoria,
-                                             @RequestParam(value = "nome") String nome,
-                                             @RequestParam(value = "marca") String marca,
-                                             @RequestParam(value = "preco") double preco,
-                                             @RequestParam(value = "unidade_medida") String unidMedida) {
+    @PostMapping(value = "/produto/cadastro")
+    public ResponseEntity<?> cadastraProduto(
+            @RequestParam(value = "id_categoria") Long idCategoria,
+
+            @RequestParam(value = "nome") String nome,
+            @RequestParam(value = "marca") String marca,
+            @RequestParam(value = "preco") double preco,
+            @RequestParam(value = "unidade_medida") String unidMedida,
+            @RequestParam(value = "img_produto") MultipartFile imgProduto) {
 
         try {
             Categoria categoria = categoriaService.buscaCategoriaPorId(idCategoria);
-            return new ResponseEntity<>(produtoService.cadastraProduto(nome, marca, preco, unidMedida, categoria), HttpStatus.OK);
+            return new ResponseEntity<>(produtoService.cadastraProduto(nome, marca, preco, unidMedida, categoria, imgProduto),
+                    HttpStatus.OK);
         } catch (Exception | CategoriaInexistenteException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

@@ -66,8 +66,8 @@ public class UsuarioController {
     @PutMapping(value = "/usuario/novasenha/{id_usuario}")
     public ResponseEntity<?> alterarSenha(
             @PathVariable(value = "id_usuario") Long idUsuario,
-            @RequestParam(value = "senhaNova") String senhaNova,
-            @RequestParam(value = "senhaAntiga") String senhaAntiga) {
+            @RequestParam(value = "senha_nova") String senhaNova,
+            @RequestParam(value = "senha_antiga") String senhaAntiga) {
 
         try {
             if (idUsuario == null)

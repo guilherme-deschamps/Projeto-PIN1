@@ -29,6 +29,7 @@ public class CategoriaService {
 
     public Categoria cadastraCategoria(Supermercado supermercado, String nome) {
         Categoria categoria = new Categoria(nome);
+        categoria.setSupermercado(supermercado);
         supermercado.addCategoria(categoria);
         supermercadoRepository.save(supermercado);
         return categoria;

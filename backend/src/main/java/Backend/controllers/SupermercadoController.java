@@ -1,7 +1,5 @@
 package Backend.controllers;
 
-import Backend.FileStorage.FileStorageProperties;
-import Backend.FileStorage.FileStorageService;
 import Backend.models.Usuario;
 import Backend.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -51,13 +45,13 @@ public class SupermercadoController {
 			@RequestParam(value = "cnpj") String cnpj,
 			@RequestParam(value = "telefone") String telefone,
 			@RequestParam(value = "email") String email,
-			@RequestParam(value = "imgSupermercado") MultipartFile imgSupermercado,
+			@RequestParam(value = "img_supermercado") MultipartFile imgSupermercado,
 
-			@RequestParam(value = "endNumero") String endNumero,
-			@RequestParam(value = "endCep") String endCep,
-			@RequestParam(value = "endLogradouro") String endLogradouro,
-			@RequestParam(value = "endBairro") String endBairro,
-			@RequestParam(value = "endCidade") String endCidade) {
+			@RequestParam(value = "end_numero") String endNumero,
+			@RequestParam(value = "end_cep") String endCep,
+			@RequestParam(value = "end_logradouro") String endLogradouro,
+			@RequestParam(value = "end_bairro") String endBairro,
+			@RequestParam(value = "end_cidade") String endCidade) {
 		
 		try {
 			Usuario usuario = usuarioService.buscaUsuarioPorId(idUsuario);

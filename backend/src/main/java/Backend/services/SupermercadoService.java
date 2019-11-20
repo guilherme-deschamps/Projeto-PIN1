@@ -56,9 +56,6 @@ public class SupermercadoService {
         novoSupermercado = supermercadoRepository.save(novoSupermercado);
 
         String caminho = this.fileStorageLocation + File.separator + "supermercado" + File.separator + novoSupermercado.getId();
-        File diretorio = new File(this.fileStorageLocation.resolve(caminho).toString());
-        if (!diretorio.exists())
-            diretorio.mkdirs();
 
         fileStorageService.storeFile(imgSupermercado, caminho, "logoSupermercado");
         return novoSupermercado;

@@ -46,7 +46,7 @@ public class UsuarioService {
 
 		Usuario usuario = usuarioRepository.findByEmail(email);
 		if (usuario == null)
-			throw new UsuarioInexistenteException("Usuario não encontrado com o id especificado.");
+			throw new UsuarioInexistenteException("Usuario não encontrado com o email especificado.");
 		if (usuario.getSenha().equals(senha))
 			return usuario;
 		else throw new AccessDeniedException("As informações de senha e email estão incorretas.");

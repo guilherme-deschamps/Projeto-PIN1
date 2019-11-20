@@ -32,18 +32,16 @@ public class FileStorageService {
     }
 
     public String storeFile(MultipartFile file, String caminho, String nomeDocumento) throws IOException {
-        //normalize file name
+
+        File diretorio = new File(this.fileStorageLocation.resolve(caminho).toString());
+        if (!diretorio.exists())
+            diretorio.mkdirs();
+
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
-        //Check if the file's name contains invalid characters
         if(fileName.contains(".."))
             throw new FileStorageException("Desculpe! Nome do arquivo é inválido, contem: '..' " + fileName);
 
-        File diretorio = new File(this.fileStorageLocation.resolve(caminho).toString());
-        if(!diretorio.exists())
-            diretorio.mkdir();
-
-        // Copy file to the target location (Replacing existing file with the same name)
         Path targetLocation = this.fileStorageLocation.resolve(caminho + File.separator + nomeDocumento + ".png");
         Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
