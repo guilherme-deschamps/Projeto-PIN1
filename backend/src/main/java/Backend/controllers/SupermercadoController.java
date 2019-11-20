@@ -1,17 +1,13 @@
 package Backend.controllers;
 
+import Backend.FileStorage.FileStorageProperties;
+import Backend.FileStorage.FileStorageService;
 import Backend.models.Usuario;
 import Backend.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import Backend.exceptions.ObjetoJaCadastradoException;
 import Backend.exceptions.SupermercadoInexistenteException;
@@ -21,8 +17,13 @@ import Backend.models.Supermercado;
 import Backend.repositories.EnderecoRepository;
 import Backend.services.EnderecoService;
 import Backend.services.SupermercadoService;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.nio.file.AccessDeniedException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -50,6 +51,7 @@ public class SupermercadoController {
 			@RequestParam(value = "cnpj") String cnpj,
 			@RequestParam(value = "telefone") String telefone,
 			@RequestParam(value = "email") String email,
+			@RequestParam(value = "imgSupermercado") MultipartFile imgSupermercado,
 
 			@RequestParam(value = "endNumero") String endNumero,
 			@RequestParam(value = "endCep") String endCep,
@@ -69,16 +71,17 @@ public class SupermercadoController {
 			else
 				endereco = enderecoService.cadastraEndereco(endNumero, endCep, endLogradouro, endBairro, endCidade);
 			
-			Supermercado supermercado = supermercadoService.cadastraSupermercado(nome, cnpj, telefone, email, endereco);
+			Supermercado supermercado = supermercadoService.cadastraSupermercado(nome, cnpj, telefone, email, endereco,
+					imgSupermercado);
 			usuarioService.adicionaNovoSupermercado(usuario, supermercado);
 			usuarioService.adicionaNovaFuncao(usuario, "gerente");
 			return new ResponseEntity<>(supermercado, HttpStatus.OK);
-		} catch (ObjetoJaCadastradoException | UsuarioInexistenteException | AccessDeniedException e) {
+		} catch (ObjetoJaCadastradoException | UsuarioInexistenteException | IOException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 
-	@PostMapping(value = "/supermercado/{id_supermercado}/usuario")
+	@PutMapping(value = "/supermercado/{id_supermercado}/usuario")
 	public ResponseEntity<?> addUsuario(
 			@PathVariable(value = "id_supermercado") Long idSupermercado,
 

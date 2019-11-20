@@ -2,16 +2,7 @@ package Backend.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class Usuario {
@@ -36,8 +27,7 @@ public class Usuario {
 	@Column(name = "funcao", nullable = false)
 	private String funcao;
 
-	@ManyToOne
-	@JsonManagedReference
+	@OneToOne
 	@JoinColumn(name = "id_supermercado")
 	private Supermercado supermercado;
 

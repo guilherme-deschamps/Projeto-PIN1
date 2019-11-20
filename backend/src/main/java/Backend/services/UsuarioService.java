@@ -75,7 +75,7 @@ public class UsuarioService {
 
 	public void adicionaNovoSupermercado(Usuario usuario, Supermercado supermercado) {
 		usuario.setSupermercado(supermercado);
-		supermercado.addUsuario(usuario);
+		supermercado.setUsuario(usuario);
 		usuarioRepository.save(usuario);
 		supermercadoRepository.save(supermercado);
 	}

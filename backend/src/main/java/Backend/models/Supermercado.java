@@ -31,10 +31,11 @@ public class Supermercado {
 	@ManyToOne
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
-	
-	@Transient
-	@JsonBackReference
-	private List<Usuario> usuarios = new ArrayList<>();
+
+	@OneToOne
+	@JoinColumn(name = "id_usuario")
+	@JsonIgnore
+	private Usuario usuario;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_categoria")
@@ -75,10 +76,6 @@ public class Supermercado {
 		return endereco;
 	}
 
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
 	public List<Categoria> getCategorias() {
 		return categorias;
 	}
@@ -87,7 +84,7 @@ public class Supermercado {
 		this.categorias.add(categoria);
 	}
 
-	public void addUsuario(Usuario usuario) {
-		this.usuarios.add(usuario);
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }
