@@ -30,7 +30,7 @@ public class CategoriaController {
     SupermercadoService supermercadoService;
 
     @PostMapping(value = "/categoria/cadastro")
-    public ResponseEntity<?> cadastraCategoria(@RequestParam(value = "nome") String nome,
+        public ResponseEntity<?> cadastraCategoria(@RequestParam(value = "nome") String nome,
                                                @RequestParam(value = "id_supermercado") Long idSupermercado) {
 
         try {

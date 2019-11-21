@@ -30,7 +30,7 @@ public class ProdutoController {
             @RequestParam(value = "marca") String marca,
             @RequestParam(value = "preco") double preco,
             @RequestParam(value = "unidade_medida") String unidMedida,
-            @RequestParam(value = "img_produto") MultipartFile imgProduto) {
+            @RequestParam(value = "img_produto", required = false) MultipartFile imgProduto) {
 
         try {
             Categoria categoria = categoriaService.buscaCategoriaPorId(idCategoria);

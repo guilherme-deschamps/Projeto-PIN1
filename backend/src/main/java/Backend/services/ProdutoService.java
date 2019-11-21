@@ -51,10 +51,11 @@ public class ProdutoService {
 
         Produto novoProduto = produtoRepository.save(new Produto(nome, marca, preco, unidMedida, categoria));
         categoriaService.adicionaProduto(categoria, novoProduto);
+        if (imgProduto != null) {
+            String caminho = this.fileStorageLocation + File.separator + "produtos" + File.separator + novoProduto.getId();
 
-        String caminho = this.fileStorageLocation + File.separator + "produtos" + File.separator + novoProduto.getId();
-
-        fileStorageService.storeFile(imgProduto, caminho, "imagemProduto");
+            fileStorageService.storeFile(imgProduto, caminho, "imagemProduto");
+        }
         return novoProduto;
     }
 

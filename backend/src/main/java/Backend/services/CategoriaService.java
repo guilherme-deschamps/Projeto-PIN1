@@ -31,6 +31,7 @@ public class CategoriaService {
         Categoria categoria = new Categoria(nome);
         categoria.setSupermercado(supermercado);
         supermercado.addCategoria(categoria);
+        categoria = categoriaRepository.save(categoria);
         supermercadoRepository.save(supermercado);
         return categoria;
     }
