@@ -1,5 +1,7 @@
 package Backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -85,8 +87,13 @@ public class Carrinho {
         return usuario;
     }
 
+    @JsonIgnore
     public Supermercado getSupermercado() {
         return supermercado;
+    }
+
+    public Long getIdSupermercado() {
+        return this.supermercado.getId();
     }
 
     public Endereco getEndereco() {

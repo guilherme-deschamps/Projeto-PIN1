@@ -1,6 +1,7 @@
 package Backend.services;
 
 import Backend.exceptions.CarrinhoInexistenteException;
+import Backend.exceptions.SupermercadoInexistenteException;
 import Backend.models.*;
 import Backend.repositories.CarrinhoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class CarrinhoService {
 
     @Autowired
     CarrinhoRepository carrinhoRepository;
+
+    @Autowired
+    SupermercadoService supermercadoService;
 
     public Carrinho cadastraCarrinho(String formaPagamento, double valorTotal, String situacao, Usuario usuario,
                                      Supermercado supermercado, Endereco endereco, List<Produto> produtos) {
@@ -57,5 +61,9 @@ public class CarrinhoService {
                 throw new AccessException("O carrinho ja está finalizado!");
         }
         return carrinhoRepository.save(carrinho);
+    }
+
+    public List<Carrinho> buscaCarrinhoPorSupermercado(Long idSupermercado) throws SupermercadoInexistenteException {
+        return carrinhoRepository.getAllBySupermercado(supermercadoService.buscaSupermercadoPorId(idSupermercado));
     }
 }

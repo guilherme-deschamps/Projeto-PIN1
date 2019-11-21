@@ -94,4 +94,13 @@ public class CarrinhoController {
             return new ResponseEntity<>(new MensagemErro(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping(value = "/carrinho/supermercado/{id_supermercado}")
+    public ResponseEntity<?> getCarrinhosBySupermercado(@PathVariable(value = "id_supermercado") Long idSupermercado) {
+        try {
+            return new ResponseEntity<>(carrinhoService.buscaCarrinhoPorSupermercado(idSupermercado), HttpStatus.OK);
+        } catch (SupermercadoInexistenteException e) {
+            return new ResponseEntity<>(new MensagemErro(e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
 }
