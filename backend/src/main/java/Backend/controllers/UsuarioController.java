@@ -96,7 +96,7 @@ public class UsuarioController {
         try {
             return new ResponseEntity<>(usuarioService.buscaUsuarioPorId(id), HttpStatus.OK);
         } catch (UsuarioInexistenteException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 }
