@@ -28,6 +28,14 @@ public class UsuarioController {
             @RequestParam(value = "email") String email,
             @RequestParam(value = "senha") String senha) {
         try {
+            if (nome == null)
+                throw new NullPointerException("Um nome deve ser enviado!");
+            if (telefone == null)
+                throw new NullPointerException("Um telefone deve ser enviado!");
+            if (email == null)
+                throw new NullPointerException("Um email deve ser enviado!");
+            if (senha == null)
+                throw new NullPointerException("Um senha deve ser enviado!");
             Usuario novoUsuario = usuarioService.cadastraUsuario(nome, telefone, email, senha, "usuario");
             return new ResponseEntity<>(novoUsuario, HttpStatus.OK);
         } catch (ObjetoJaCadastradoException | NullPointerException e) {
