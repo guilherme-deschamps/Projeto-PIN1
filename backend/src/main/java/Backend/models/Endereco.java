@@ -41,4 +41,28 @@ public class Endereco {
 		this.bairro = bairro;
 		this.cidade = cidade;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
 }

@@ -1,5 +1,6 @@
 package Backend.controllers;
 
+import Backend.exceptions.MensagemErro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class UsuarioController {
             Usuario novoUsuario = usuarioService.cadastraUsuario(nome, telefone, email, senha, "usuario");
             return new ResponseEntity<>(novoUsuario, HttpStatus.OK);
         } catch (ObjetoJaCadastradoException | NullPointerException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new MensagemErro(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -43,7 +44,7 @@ public class UsuarioController {
             Usuario usuario = usuarioService.verificaLogin(email, senha);
             return new ResponseEntity<>(usuario, HttpStatus.OK);
         } catch (AccessDeniedException | UsuarioInexistenteException | NullPointerException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new MensagemErro(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -59,7 +60,7 @@ public class UsuarioController {
             usuario = usuarioService.editaUsuario(usuario, nome, telefone, email);
             return new ResponseEntity<>(usuario, HttpStatus.OK);
         }catch (UsuarioInexistenteException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new MensagemErro(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -81,7 +82,7 @@ public class UsuarioController {
             usuario = usuarioService.alteraSenha(usuario, senhaNova, senhaAntiga);
             return new ResponseEntity<>(usuario, HttpStatus.OK);
         } catch (NullPointerException | UsuarioInexistenteException | AccessDeniedException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new MensagemErro(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 

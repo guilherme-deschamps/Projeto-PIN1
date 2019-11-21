@@ -1,6 +1,7 @@
 package Backend.controllers;
 
 import Backend.exceptions.CarrinhoInexistenteException;
+import Backend.exceptions.MensagemErro;
 import Backend.exceptions.SupermercadoInexistenteException;
 import Backend.exceptions.UsuarioInexistenteException;
 import Backend.models.*;
@@ -78,7 +79,7 @@ public class CarrinhoController {
             return new ResponseEntity<>(carrinhoService.cadastraCarrinho
                     (formaPagamento, valorTotal, Carrinho.CRIADO, usuario, supermercado, endereco, produtos), HttpStatus.OK);
         } catch (SupermercadoInexistenteException | UsuarioInexistenteException | IOException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new MensagemErro(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -90,7 +91,7 @@ public class CarrinhoController {
             Carrinho carrinho = carrinhoService.buscaCarrinhoPorId(idCarrinho);
             return new ResponseEntity<>(carrinhoService.avancaCarrinho(carrinho), HttpStatus.OK);
         } catch (CarrinhoInexistenteException | AccessException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new MensagemErro(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 }

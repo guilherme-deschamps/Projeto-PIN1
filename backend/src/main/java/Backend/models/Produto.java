@@ -1,5 +1,6 @@
 package Backend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -32,7 +33,7 @@ public class Produto {
 
     @ManyToOne
     @JoinColumn(name = "id_categoria")
-    @JsonManagedReference
+    @JsonBackReference
     private Categoria categoria;
 
     public Produto() {

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.io.File;
 import java.util.List;
 
 @Entity
@@ -18,12 +19,12 @@ public class Categoria {
     private String nome;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
-    @JsonBackReference
+    @JsonManagedReference
     private List<Produto> produtos;
 
     @ManyToOne
     @JoinColumn(name = "id_supermercado")
-    @JsonManagedReference
+    @JsonBackReference
     private Supermercado supermercado;
 
     public Categoria() {
@@ -63,5 +64,13 @@ public class Categoria {
 
     public void setSupermercado(Supermercado supermercado) {
         this.supermercado = supermercado;
+    }
+
+    public String getCaminhoImagem() {
+        return 	System.getProperty("user.dir") +
+                File.separator + "uploads" +
+                File.separator + "produtos" +
+                File.separator + this.getId() +
+                File.separator + "imagemProduto.png";
     }
 }

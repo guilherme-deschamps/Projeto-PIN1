@@ -1,8 +1,15 @@
 package Backend.models;
 
+import Backend.FileStorage.FileStorageProperties;
+import Backend.FileStorage.FileStorageService;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +17,7 @@ import javax.persistence.*;
 
 @Entity
 public class Supermercado {
-	
+
 	@Id
     @Column(name = "id_supermercado")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,11 +41,11 @@ public class Supermercado {
 
 	@OneToOne
 	@JoinColumn(name = "id_usuario")
-	@JsonIgnore
+	@JsonManagedReference
 	private Usuario usuario;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "supermercado")
-	@JsonBackReference
+	@JsonManagedReference
 	private List<Categoria> categorias = new ArrayList<>();
 
 	public Supermercado() {
@@ -84,7 +91,19 @@ public class Supermercado {
 		this.categorias.add(categoria);
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getCaminhoImagem() {
+		return 	System.getProperty("user.dir") +
+				File.separator + "uploads" +
+				File.separator + "supermercados" +
+				File.separator + this.getId() +
+				File.separator + "logoSupermercado.png";
 	}
 }

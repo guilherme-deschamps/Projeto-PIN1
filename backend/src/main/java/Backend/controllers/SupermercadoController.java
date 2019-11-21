@@ -1,5 +1,6 @@
 package Backend.controllers;
 
+import Backend.exceptions.MensagemErro;
 import Backend.models.Usuario;
 import Backend.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +72,7 @@ public class SupermercadoController {
 			usuarioService.adicionaNovaFuncao(usuario, "gerente");
 			return new ResponseEntity<>(supermercado, HttpStatus.OK);
 		} catch (ObjetoJaCadastradoException | UsuarioInexistenteException | IOException e) {
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new MensagemErro(e.getMessage()), HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -91,7 +92,7 @@ public class SupermercadoController {
 			usuarioService.adicionaNovoSupermercado(usuario, supermercado);
 			return new ResponseEntity<>(usuario, HttpStatus.OK);
 		} catch (SupermercadoInexistenteException e) {
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new MensagemErro(e.getMessage()), HttpStatus.BAD_REQUEST);
 		}
 
 	}
@@ -101,7 +102,7 @@ public class SupermercadoController {
 		try {
 			return new ResponseEntity<>(supermercadoService.buscaSupermercadoPorId(id), HttpStatus.OK);
 		}catch (SupermercadoInexistenteException e) {
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new MensagemErro(e.getMessage()), HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -110,7 +111,7 @@ public class SupermercadoController {
 		try {
 			return new ResponseEntity<>(supermercadoService.buscaSupermercados(), HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new MensagemErro(e.getMessage()), HttpStatus.BAD_REQUEST);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 package Backend.controllers;
 
 import Backend.exceptions.CategoriaInexistenteException;
+import Backend.exceptions.MensagemErro;
 import Backend.exceptions.ProdutoInexistenteException;
 import Backend.exceptions.SupermercadoInexistenteException;
 import Backend.models.Categoria;
@@ -36,7 +37,7 @@ public class CategoriaController {
             Supermercado supermercado = supermercadoService.buscaSupermercadoPorId(idSupermercado);
             return new ResponseEntity<>(categoriaService.cadastraCategoria(supermercado, nome), HttpStatus.OK);
         } catch (Exception | SupermercadoInexistenteException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new MensagemErro(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -50,7 +51,7 @@ public class CategoriaController {
             categoriaService.adicionaProduto(categoria, produto);
             return new ResponseEntity<>(categoria, HttpStatus.OK);
         } catch (Exception | ProdutoInexistenteException | CategoriaInexistenteException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new MensagemErro(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 }
