@@ -30,7 +30,6 @@ public class Usuario {
 
 	@OneToOne
 	@JoinColumn(name = "id_supermercado")
-	@JsonBackReference
 	private Supermercado supermercado;
 
 	public Usuario() {

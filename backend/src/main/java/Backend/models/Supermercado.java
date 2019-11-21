@@ -41,7 +41,6 @@ public class Supermercado {
 
 	@OneToOne
 	@JoinColumn(name = "id_usuario")
-	@JsonManagedReference
 	private Usuario usuario;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "supermercado")
@@ -91,8 +90,13 @@ public class Supermercado {
 		this.categorias.add(categoria);
 	}
 
+	@JsonIgnore
 	public Usuario getUsuario() {
 		return usuario;
+	}
+
+	public Long getIdUsuario() {
+		return usuario.getId();
 	}
 
 	public void setUsuario(Usuario usuario) {
