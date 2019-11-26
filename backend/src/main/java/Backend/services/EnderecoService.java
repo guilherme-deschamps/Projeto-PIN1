@@ -1,7 +1,5 @@
 package Backend.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import Backend.exceptions.ObjetoJaCadastradoException;
 import Backend.models.Endereco;
@@ -18,8 +16,7 @@ public class EnderecoService {
 	
 		if (enderecoRepository.existsByCidadeAndBairroAndLogradouroAndNumero
 				(cidade, bairro, logradouro, numero)) 
-			throw new ObjetoJaCadastradoException("Endereço ja cadastrado com estas"
-					+ "informações");
+			throw new ObjetoJaCadastradoException("EndereÃ§o ja cadastrado com estas informaÃ§Ãµes");
 		Endereco novoEndereco = new Endereco(numero, cep, logradouro, bairro, cidade);
 		enderecoRepository.save(novoEndereco);
 		return novoEndereco;
