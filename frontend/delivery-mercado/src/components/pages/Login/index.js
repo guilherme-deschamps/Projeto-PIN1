@@ -30,7 +30,7 @@ class Login extends Component {
     let formData = new FormData();
     formData.append("email", this.state.email);
     formData.append("senha", this.state.password);
-    let response = await fetch("http://backend:9090/api/usuario/login", {
+    let response = await fetch("http://localhost:9090/api/usuario/login", {
       method: "POST",
       body: formData
     })

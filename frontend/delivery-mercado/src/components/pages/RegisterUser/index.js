@@ -26,7 +26,7 @@ class RegisterUser extends Component {
       formData.append("email", this.state.email);
       formData.append("senha", this.state.password);
 
-      let response = fetch("http://backend:9090/api/usuario/cadastro", {
+      let response = fetch("http://localhost:9090/api/usuario/cadastro", {
         method: "POST",
         body: formData
       }).then(function(response) {
