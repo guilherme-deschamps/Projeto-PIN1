@@ -1,33 +1,38 @@
 package Backend.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
 
 @Entity
 public class Usuario {
 
 	@Id
-    @Column(name = "id_pessoa")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_usuario")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "nome")
+	@Column(name = "nome", nullable = false)
 	private String nome;
 	
 	@Column(name = "telefone")
 	private String telefone;
 	
-	@Column(name = "email")
+	@Column(name = "email", nullable = false)
 	private String email;
 	
-	@Column(name = "senha")
+	@Column(name = "senha", nullable = false)
 	private String senha;
-	
+
+	@Column(name = "funcao", nullable = false)
+	private String funcao;
+
+	@OneToOne
+	@JoinColumn(name = "id_supermercado")
+	private Supermercado supermercado;
+
 	public Usuario() {
-		
 	}
 
 	public Usuario(String nome, String telefone, String email, String senha) {
@@ -76,6 +81,20 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
-	
+
+	public String getFuncao() {
+		return funcao;
+	}
+
+	public void setFuncao(String funcao) {
+		this.funcao = funcao;
+	}
+
+	public Supermercado getSupermercado() {
+		return supermercado;
+	}
+
+	public void setSupermercado(Supermercado supermercado) {
+		this.supermercado = supermercado;
+	}
 }
